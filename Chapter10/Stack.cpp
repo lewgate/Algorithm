@@ -71,6 +71,7 @@ void Stack<T>::Resize(){
     for(int i = 0; i < length_; i++)
         ptmp[i] = pdata_[i];
     length_ = length;
+    delete [] pdata_;
     pdata_ = ptmp;
 }
 template <typename T>
