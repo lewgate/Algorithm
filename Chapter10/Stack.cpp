@@ -1,13 +1,17 @@
 #include <stdlib.h>
+#include <iostream>
+using namespace std;
 template <typename T>
 class Stack{
     public:
         Stack();
         Stack(int size);
         ~Stack();
+        Stack(const Stack &t);
         bool IsEmpty();
         void Push(T t);
-        bool Pop(T &t);
+        T Pop();
+
     protected:
         void Resize();
 
@@ -17,10 +21,18 @@ class Stack{
         int top_;
 };
 template <typename T>
+Stack<T>::Stack(const Stack &t){
+    length_ = t.length_;
+    top_ = t.top_;
+    pdata_ = new T [length_];
+    for(int i = 0;i <= top_; i++)
+        pdata_[i] = t.pdata_[i];
+}
+template <typename T>
 Stack<T>::Stack(){
-    pdata_ = NULL;
+    length_ = 1;
+    pdata_ = new T[length_];
     top_ = 0;
-    length_ = 0;
 }
 template <typename T>
 Stack<T>::Stack(int length){
@@ -62,13 +74,20 @@ void Stack<T>::Resize(){
     pdata_ = ptmp;
 }
 template <typename T>
-bool Stack<T>::Pop(T &t){
-    if(!IsEmpty()){
-        t = pdata_[top_--];
-        return true;
+T Stack<T>::Pop(){
+    return pdata_[top_--];
+}
+int main(){
+    Stack<int> S1;
+    for(int i = 0; i < 15; i++)
+        S1.Push(i);
+    Stack<int> S2 = S1;
+    S2.Push(100);
+    while(!S2.IsEmpty()){
+        cout<<S2.Pop()<<" ";
     }
-    else
-        return false;
+    cout<<endl;
+    return 0;
 }
 
 
