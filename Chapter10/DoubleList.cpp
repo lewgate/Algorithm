@@ -15,23 +15,11 @@ class DoubleList{
         ~DoubleList();
         void Print();
         Node<T> * operator[](int idx);
+        int Size();
     private:
         Node<T>* phead_;
         int length_;
 };
-template <typename T>
-Node<T>* DoubleList<T>::operator[](int idx){
-    if(idx < 0 || idx > length_-1)
-        return 0;
-    else{
-        Node<T> *p = phead_->next;
-        while(idx != 0){
-            idx--;
-            p = p->next;
-        }
-        return p;
-    }
-}
 template <typename T>
 DoubleList<T>::DoubleList(){
     phead_ = new Node<T>; 
@@ -62,7 +50,10 @@ void DoubleList<T>::Print(){
     }
     std::cout<<std::endl;
 }
-
+template <typename T>
+int DoubleList<T>::Size(){
+    return length_;
+}
 template <typename T>
 void DoubleList<T>::Insert(const T x){
     Node<T> *p = new Node<T>;
@@ -97,6 +88,19 @@ Node<T>* DoubleList<T>::Search(const T x){
     }
     return 0;
 }
+template <typename T>
+Node<T>* DoubleList<T>::operator[](int idx){
+    if(idx < 0 || idx > length_-1)
+        return 0;
+    else{
+        Node<T> *p = phead_->next;
+        while(idx != 0){
+            idx--;
+            p = p->next;
+        }
+        return p;
+    }
+}
 int main(){
     DoubleList<int> list;
     for(int i = 1; i < 10; i++)
@@ -104,6 +108,7 @@ int main(){
     list.Print();
     for(int i = 1; i < 9; i++){
         list.Delete(i);
+        std::cout<<list.Size()<<std::endl;
         list.Print();
     }
     list.Print();
