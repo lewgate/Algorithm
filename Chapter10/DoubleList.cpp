@@ -4,6 +4,8 @@ struct Node{
     Node<T> *prev;
     T key;
     Node<T> *next;
+    Node(const T &tt, Node<T>* pprev = 0, Node<T>* pnext = 0):
+        key(tt), prev(pprev), next(pnext){}
 };
 template <typename T>
 class DoubleList{
@@ -22,8 +24,7 @@ class DoubleList{
 };
 template <typename T>
 DoubleList<T>::DoubleList(){
-    phead_ = new Node<T>; 
-    phead_->key = 0;
+    phead_ = new Node<T>(0); 
     phead_->prev = phead_;
     phead_->next = phead_;
     length_ = 0;
@@ -56,10 +57,7 @@ int DoubleList<T>::Size(){
 }
 template <typename T>
 void DoubleList<T>::Insert(const T x){
-    Node<T> *p = new Node<T>;
-    p->key = x;
-    p->next = phead_->next;
-    p->prev = phead_;
+    Node<T> *p = new Node<T>(x, phead_, phead_->next);
     phead_->next = p;
     p->next->prev = p;
     length_++;
@@ -114,5 +112,3 @@ int main(){
     list.Print();
     return 0;
 }
-
-
