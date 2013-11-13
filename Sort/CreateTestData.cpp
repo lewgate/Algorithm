@@ -24,6 +24,7 @@ int main(int argc, char *argv[]){
     FILE *pFidResult = fopen("ResultData.txt", "w");
     if(pFidResult == NULL)
         return -1;
+    fprintf(pFidResult, "%d\t", length);
     qsort(pArray, length, sizeof(int), compare);
     for(int k = 0; k < length; k++)
         fprintf(pFidResult, "%d\t", pArray[k]);

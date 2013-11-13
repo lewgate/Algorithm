@@ -6,7 +6,7 @@ int main(int argc, char * argv[]){
     if(argc != 3)
         return -1;
     FILE *pFid1 = fopen(argv[1], "r");
-    FILE *pFid2 = fopen(argv[1], "r");
+    FILE *pFid2 = fopen(argv[2], "r");
     if(pFid1 == NULL || pFid2 == NULL)
         return -1;
     int length1, length2;  

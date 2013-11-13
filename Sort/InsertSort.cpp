@@ -20,6 +20,7 @@ int main(){
     for(int k = 0; k < length; k++)
         std::cin>>pArray[k];
     InsertSort(pArray, length);
+    std::cout<<length<<'\t';
     for(int k = 0; k < length; k++)
         std::cout<<pArray[k]<<'\t';
     delete [] pArray;
