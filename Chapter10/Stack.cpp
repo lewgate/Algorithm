@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <iostream>
 using namespace std;
-template <typename T>
+template <class T>
 class Stack{
     public:
         Stack();
@@ -20,7 +20,7 @@ class Stack{
         int length_;
         int top_;
 };
-template <typename T>
+template <class T>
 Stack<T>::Stack(const Stack &t){
     length_ = t.length_;
     top_ = t.top_;
@@ -28,19 +28,19 @@ Stack<T>::Stack(const Stack &t){
     for(int i = 0;i <= top_; i++)
         pdata_[i] = t.pdata_[i];
 }
-template <typename T>
+template <class T>
 Stack<T>::Stack(){
     length_ = 1;
     pdata_ = new T[length_];
     top_ = 0;
 }
-template <typename T>
+template <class T>
 Stack<T>::Stack(int length){
     pdata_ = new T[length];
     top_ = 0;
     length_ = length;
 }
-template <typename T>
+template <class T>
 Stack<T>::~Stack(){
     if(pdata_ != NULL){
         delete [] pdata_;
@@ -48,11 +48,11 @@ Stack<T>::~Stack(){
     }
     length_ = 0;
 }
-template <typename T>
+template <class T>
 bool Stack<T>::IsEmpty(){
     return !top_;
 }
-template<typename T>
+template<class T>
 void Stack<T>::Push(T t){
     if(top_ < length_ - 1){
         top_++;
@@ -64,7 +64,7 @@ void Stack<T>::Push(T t){
         pdata_[top_] = t;
     }
 }
-template <typename T>
+template <class T>
 void Stack<T>::Resize(){
     int length = 2*length_;
     T *ptmp = new T[length];
@@ -74,21 +74,21 @@ void Stack<T>::Resize(){
     delete [] pdata_;
     pdata_ = ptmp;
 }
-template <typename T>
+template <class T>
 T Stack<T>::Pop(){
     return pdata_[top_--];
 }
-int main(){
-    Stack<int> S1;
-    for(int i = 0; i < 15; i++)
-        S1.Push(i);
-    Stack<int> S2 = S1;
-    S2.Push(100);
-    while(!S2.IsEmpty()){
-        cout<<S2.Pop()<<" ";
-    }
-    cout<<endl;
-    return 0;
-}
+//int main(){
+//    Stack<int> S1;
+//    for(int i = 0; i < 15; i++)
+//        S1.Push(i);
+//    Stack<int> S2 = S1;
+//    S2.Push(100);
+//    while(!S2.IsEmpty()){
+//        cout<<S2.Pop()<<" ";
+//    }
+//    cout<<endl;
+//    return 0;
+//}
 
 

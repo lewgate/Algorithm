@@ -1,4 +1,5 @@
 #include <iostream>
+#include "../Chapter10/Stack.cpp"
 using namespace std;
 template <class T>
 struct Node{
@@ -18,6 +19,9 @@ class BinaryTree{
         void Delete(const T &t);
         Node<T>* Search(const T &t);
         void InorderPrint();
+        void PreorderPrint();
+        void PostorderPrint();
+        void InorderNoRec();
         Node<T>* FindMin();
         Node<T>* FindMax();
         void MakeEmpty();
@@ -25,6 +29,8 @@ class BinaryTree{
         void Insert(Node<T> *&root, const T &t);
         Node<T> *Search(Node<T> *root, const T &t);
         void InorderPrint(Node<T> *root);
+        void PreorderPrint(Node<T> *root);
+        void PostorderPrint(Node<T> *root);
         void Delete(Node<T> *&root, const T &t);
         Node<T>* FindMax(Node<T> *root);
         Node<T>* FindMin(Node<T> *root);
@@ -97,8 +103,51 @@ void BinaryTree<T>::InorderPrint(Node<T> *root){
     return ;
 }
 template <class T>
+void BinaryTree<T>::PreorderPrint(Node<T> *root){
+    if(root != 0){
+        cerr<<" "<<root->key<<" ";
+        PreorderPrint(root->pleft);
+        PreorderPrint(root->pright);
+    }
+    return ;
+}
+template <class T>
+void BinaryTree<T>::PostorderPrint(Node<T> *root){
+    if(root != 0){
+        PostorderPrint(root->pleft);
+        PostorderPrint(root->pright);
+        cerr<<" "<<root->key<<" ";
+    }
+    return ;
+}
+template <class T>
 void BinaryTree<T>::InorderPrint(){
     InorderPrint(root_);
+}
+template <class T>
+void BinaryTree<T>::PreorderPrint(){
+    PreorderPrint(root_);
+}
+template <class T>
+void BinaryTree<T>::PostorderPrint(){
+    PostorderPrint(root_);
+}
+template <class T>
+void BinaryTree<T>::InorderNoRec(){
+    Stack<Node<T>*> s;
+    Node<T> *p = root_;
+    do{
+        while(p != 0){
+            s.Push(p);
+            p = p->pleft;
+        }
+        if(!s.IsEmpty()){
+            p = s.Pop();
+            cerr<<" "<<p->key<<" ";
+            p = p->pright;
+        }
+    }while(p != 0 || !s.IsEmpty());
+
 }
 template <class T>
 void BinaryTree<T>::Delete(const T &t){
@@ -156,7 +205,11 @@ int main(){
     BinaryTree<int> tr;
     for(int i = 0; i < 15; i++)
         tr.Insert(i);
-    tr.InorderPrint();
+    tr.InorderNoRec();
+    cerr<<"\n***********\n";
+    tr.PostorderPrint();
+    cerr<<"\n***********\n";
+    tr.PreorderPrint();
     cerr<<"\n***********\n";
     for(int i = -1; i < 30; i++){
         Node<int> *p = tr.Search(i);
